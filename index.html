@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Formation YOOZ pour les nuls – Dématérialisez vos factures en toute simplicité. Session du 6 juillet 2026 à Pessac." />
+  <title>YOOZ pour les nuls — Formation Valeurs &amp; Talents</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --blue:       #0A5CF5;
+      --blue-dark:  #0D1B3E;
+      --blue-mid:   #1a2f6e;
+      --mint:       #2ECC8F;
+      --mint-light: #e8faf3;
+      --white:      #FFFFFF;
+      --grey-bg:    #F5F7FA;
+      --grey-text:  #4A5568;
+      --grey-border:#DDE3EE;
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  24px;
+      --shadow:     0 4px 24px rgba(10,92,245,0.10);
+      --transition: 0.28s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ─── RESET / BASE ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--blue-dark);
+      background: var(--white);
+    }
+    img { max-width: 100%; display: block; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--mint);
+      outline-offset: 3px;
+    }
+
+    /* ─── SKIP LINK (accessibilité) ─────────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -40px; left: 16px;
+      background: var(--blue);
+      color: var(--white);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      z-index: 9999;
+      transition: top .2s;
+    }
+    .skip-link:focus { top: 16px; }
+
+    /* ─── HEADER ─────────────────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 27, 62, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-brand img.logo {
+      height: 44px;
+      width: auto;
+      border-radius: 6px;
+    }
+    .header-titles {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-titles strong {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+    .header-titles span {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      letter-spacing: 0.2px;
+    }
+    nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    nav a {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.84rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: background var(--transition), color var(--transition);
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: var(--blue-dark);
+      overflow: hidden;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.18;
+      mix-blend-mode: luminosity;
+    }
+    /* papiers animés */
+    .paper {
+      position: absolute;
+      width: 34px; height: 44px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      animation: float-paper 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .paper::after {
+      content: '';
+      display: block;
+      margin: 7px 6px 4px;
+      height: 3px; background: rgba(255,255,255,0.25); border-radius: 2px;
+      box-shadow: 0 5px 0 rgba(255,255,255,0.15), 0 10px 0 rgba(255,255,255,0.10);
+    }
+    .paper:nth-child(1)  { top:12%; left:8%;  animation-delay:0s;    animation-duration:5.8s; transform:rotate(-12deg); }
+    .paper:nth-child(2)  { top:55%; left:4%;  animation-delay:1.2s;  animation-duration:7s;   transform:rotate(8deg); }
+    .paper:nth-child(3)  { top:25%; left:78%; animation-delay:0.4s;  animation-duration:6.2s; transform:rotate(15deg); }
+    .paper:nth-child(4)  { top:70%; left:72%; animation-delay:2s;    animation-duration:5.5s; transform:rotate(-6deg); }
+    .paper:nth-child(5)  { top:40%; left:90%; animation-delay:0.9s;  animation-duration:6.8s; transform:rotate(20deg); }
+    @keyframes float-paper {
+      0%,100% { transform: translateY(0) rotate(var(--r, -12deg)); }
+      50%      { transform: translateY(-18px) rotate(calc(var(--r, -12deg) + 6deg)); }
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-text { color: var(--white); }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(46,204,143,0.18);
+      border: 1px solid rgba(46,204,143,0.4);
+      color: var(--mint);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.55rem; }
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--mint);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 460px;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--mint);
+      color: var(--blue-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 50px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(46,204,143,0.4);
+      text-decoration: none;
+    }
+    .hero-img-block {
+      display: flex;
+      justify-content: center;
+    }
+    .hero-img-block img {
+      width: 100%;
+      max-width: 440px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    }
+
+    /* ─── INFO BANNER ────────────────────────────────────── */
+    .info-banner {
+      background: var(--blue);
+      color: var(--white);
+    }
+    .info-banner-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      align-items: center;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+    }
+    .info-item .icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .info-item strong { display: block; font-weight: 700; }
+    .info-item span   { font-size: 0.78rem; opacity: 0.8; }
+    .info-sep { width: 1px; height: 32px; background: rgba(255,255,255,0.25); }
+
+    /* ─── SECTIONS COMMUNES ──────────────────────────────── */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+    .section-intro {
+      color: var(--grey-text);
+      font-size: 1rem;
+      max-width: 620px;
+      margin-bottom: 48px;
+    }
+
+    /* ─── DESCRIPTION ────────────────────────────────────── */
+    #description { background: var(--grey-bg); }
+    .desc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .desc-left { }
+    .desc-right { }
+    .desc-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      border: 1px solid var(--grey-border);
+      box-shadow: var(--shadow);
+    }
+    .desc-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .desc-card h3 .c-icon {
+      width: 32px; height: 32px;
+      background: var(--mint-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .desc-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .desc-card ul li {
+      padding-left: 20px;
+      position: relative;
+      color: var(--grey-text);
+      font-size: 0.93rem;
+    }
+    .desc-card ul li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--mint);
+      font-weight: 700;
+    }
+    .price-block {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      color: var(--white);
+      text-align: center;
+      margin-top: 24px;
+    }
+    .price-block .price {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--mint);
+      line-height: 1;
+    }
+    .price-block .price-sub { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; margin-bottom: 16px; }
+    .price-block .badge-opco {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      font-size: 0.78rem; font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .feat-item {
+      background: var(--white);
+      border: 1px solid var(--grey-border);
+      border-radius: var(--radius-sm);
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .feat-item .feat-icon { font-size: 1.4rem; margin-bottom: 6px; }
+    .feat-item p { font-size: 0.8rem; font-weight: 600; color: var(--blue-dark); }
+
+    /* ─── PROGRAMME (accordéon) ──────────────────────────── */
+    #programme { background: var(--blue-dark); }
+    #programme .section-label { color: var(--mint); }
+    #programme .section-title { color: var(--white); }
+    #programme .section-intro { color: rgba(255,255,255,0.6); }
+
+    .accordion { display: flex; flex-direction: column; gap: 10px; }
+    .acc-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .acc-item.open { border-color: rgba(46,204,143,0.4); }
+    .acc-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+    }
+    .acc-trigger:hover { background: rgba(255,255,255,0.05); }
+    .acc-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .acc-item.open .acc-num { background: var(--mint); color: var(--blue-dark); }
+    .acc-label-block { flex: 1; }
+    .acc-module {
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--mint);
+      font-weight: 600;
+    }
+    .acc-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .acc-meta { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+    .acc-arrow {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform var(--transition);
+      flex-shrink: 0;
+    }
+    .acc-item.open .acc-arrow { transform: rotate(180deg); }
+    .acc-arrow svg { width: 14px; height: 14px; fill: none; stroke: rgba(255,255,255,0.7); stroke-width: 2; }
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .acc-body-inner {
+      padding: 0 22px 20px 70px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .acc-body ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 7px;
+      margin-top: 16px;
+    }
+    .acc-body ul li {
+      color: rgba(255,255,255,0.72);
+      font-size: 0.9rem;
+      padding-left: 18px;
+      position: relative;
+    }
+    .acc-body ul li::before {
+      content: '▸';
+      position: absolute; left: 0;
+      color: var(--mint);
+    }
+    .acc-tools {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+    }
+    .acc-tool {
+      background: rgba(10,92,245,0.3);
+      border: 1px solid rgba(10,92,245,0.5);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.73rem; font-weight: 600;
+      padding: 3px 12px; border-radius: 20px;
+    }
+
+    /* ─── VIDEO ──────────────────────────────────────────── */
+    #video { background: var(--grey-bg); }
+    .video-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .video-frame {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--blue-dark);
+      box-shadow: var(--shadow);
+    }
+    .video-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px;
+      color: rgba(255,255,255,0.7);
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+    }
+    .play-btn {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--mint);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 12px rgba(46,204,143,0.15);
+    }
+    .play-btn svg { width: 28px; height: 28px; fill: var(--blue-dark); margin-left: 4px; }
+    .video-placeholder p { font-size: 0.88rem; opacity: 0.7; }
+    .video-text { }
+    .video-text blockquote {
+      border-left: 3px solid var(--mint);
+      padding-left: 20px;
+      color: var(--grey-text);
+      font-style: italic;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+    .formateur-info {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--white);
+      border: 1px solid var(--grey-border);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+    }
+    .formateur-avatar {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--mint));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .formateur-detail strong { font-weight: 700; color: var(--blue-dark); display: block; }
+    .formateur-detail span  { font-size: 0.82rem; color: var(--grey-text); }
+
+    /* ─── CARTE ──────────────────────────────────────────── */
+    #lieu { background: var(--white); }
+    .map-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .map-infos { display: flex; flex-direction: column; gap: 16px; }
+    .map-card {
+      background: var(--grey-bg);
+      border: 1px solid var(--grey-border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+    }
+    .map-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .map-card p { font-size: 0.9rem; color: var(--grey-text); line-height: 1.6; }
+    .date-highlight {
+      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      color: var(--white);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      text-align: center;
+    }
+    .date-highlight .date-big {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem; font-weight: 800;
+      line-height: 1;
+    }
+    .date-highlight .date-sub { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
+    .map-embed {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      height: 360px;
+    }
+    .map-embed iframe {
+      width: 100%; height: 100%; border: none;
+    }
+
+    /* ─── TÉLÉCHARGEMENTS ────────────────────────────────── */
+    #telechargements { background: var(--grey-bg); }
+    .dl-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .dl-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: var(--white);
+      border: 1px solid var(--grey-border);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      flex: 1; min-width: 280px;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .dl-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(10,92,245,0.15);
+    }
+    .dl-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .dl-icon svg { width: 28px; height: 28px; fill: var(--white); }
+    .dl-info { flex: 1; }
+    .dl-info strong { display: block; font-weight: 700; color: var(--blue-dark); font-size: 0.95rem; }
+    .dl-info span   { font-size: 0.8rem; color: var(--grey-text); }
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 0.85rem; font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 50px;
+      transition: background var(--transition), transform var(--transition);
+      white-space: nowrap;
+    }
+    .dl-btn:hover {
+      background: var(--blue-mid);
+      transform: scale(1.04);
+      text-decoration: none;
+    }
+    .dl-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--blue-dark);
+      color: rgba(255,255,255,0.75);
+      padding: 52px 24px 28px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 28px;
+    }
+    .footer-brand img { height: 38px; width: auto; border-radius: 6px; margin-bottom: 14px; }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.6; }
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem; font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.88rem;
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--mint); text-decoration: none; }
+    .footer-contact-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; color: rgba(255,255,255,0.65);
+      margin-bottom: 10px;
+    }
+    .footer-contact-item span.ci-icon {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+    }
+    .footer-contact-item a { color: rgba(255,255,255,0.65); }
+    .footer-contact-item a:hover { color: var(--mint); }
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-bottom p { font-size: 0.78rem; }
+    .footer-bottom a { color: var(--mint); font-size: 0.78rem; }
+    .handicap-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(46,204,143,0.12);
+      border: 1px solid rgba(46,204,143,0.3);
+      color: var(--mint) !important;
+      font-size: 0.78rem !important;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: background var(--transition);
+    }
+    .handicap-link:hover { background: rgba(46,204,143,0.22); text-decoration: none; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner     { grid-template-columns: 1fr; padding: 56px 20px; }
+      .hero-img-block { display: none; }
+      .desc-grid      { grid-template-columns: 1fr; }
+      .video-wrapper  { grid-template-columns: 1fr; }
+      .map-wrapper    { grid-template-columns: 1fr; }
+      .footer-top     { grid-template-columns: 1fr 1fr; }
+      .features-grid  { grid-template-columns: 1fr 1fr; }
+      nav             { display: none; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 56px 16px; }
+      .footer-top     { grid-template-columns: 1fr; }
+      .features-grid  { grid-template-columns: 1fr 1fr 1fr; }
+      .info-sep       { display: none; }
+      .info-banner-inner { gap: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main" class="skip-link">Aller au contenu</a>
+
+  <!-- ══ HEADER ════════════════════════════════════════════ -->
+  <header>
+    <div class="header-inner">
+      <div class="header-brand">
+        <img src="logo.png" alt="Valeurs &amp; Talents – Logo" class="logo" />
+        <div class="header-titles">
+          <strong>YOOZ pour les nuls</strong>
+          <span>YOOZ : Parce que votre temps est précieux.</span>
+        </div>
+      </div>
+      <nav aria-label="Navigation principale">
+        <a href="#description">La formation</a>
+        <a href="#programme">Programme</a>
+        <a href="#video">Formateur</a>
+        <a href="#lieu">Lieu</a>
+        <a href="#telechargements">Documents</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ══ HERO ══════════════════════════════════════════════ -->
+    <section class="hero" aria-label="Présentation de la formation">
+      <img src="Image_YOOZ.jpg" alt="" class="hero-bg-img" aria-hidden="true" />
+      <!-- papiers animés -->
+      <div class="paper" aria-hidden="true"></div>
+      <div class="paper" aria-hidden="true"></div>
+      <div class="paper" aria-hidden="true"></div>
+      <div class="paper" aria-hidden="true"></div>
+      <div class="paper" aria-hidden="true"></div>
+
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-badge">Nouvelle session</div>
+          <h1 class="hero-title">
+            Maîtrisez <em>YOOZ</em><br />
+            dès le premier jour
+          </h1>
+          <p class="hero-sub">
+            Dématérialisez vos factures, automatisez vos traitements et libérez du temps pour ce qui compte vraiment — sans prise de tête.
+          </p>
+          <a href="#programme" class="hero-cta" aria-label="Voir le programme de la formation">
+            Voir le programme
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="hero-img-block">
+          <img src="Image_YOOZ.jpg" alt="Illustration YOOZ – Dématérialisez, simplifiez, transformez" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ BANDEAU INFO ═══════════════════════════════════════ -->
+    <div class="info-banner" role="region" aria-label="Informations clés">
+      <div class="info-banner-inner">
+        <div class="info-item">
+          <div class="icon" aria-hidden="true">📅</div>
+          <div>
+            <strong>6 juillet 2026</strong>
+            <span>Date de la session</span>
+          </div>
+        </div>
+        <div class="info-sep" aria-hidden="true"></div>
+        <div class="info-item">
+          <div class="icon" aria-hidden="true">📍</div>
+          <div>
+            <strong>Pessac (33600)</strong>
+            <span>26 av. Jean Jaurès</span>
+          </div>
+        </div>
+        <div class="info-sep" aria-hidden="true"></div>
+        <div class="info-item">
+          <div class="icon" aria-hidden="true">⏱️</div>
+          <div>
+            <strong>5 jours intensifs</strong>
+            <span>+ 1 jour REX à J+30</span>
+          </div>
+        </div>
+        <div class="info-sep" aria-hidden="true"></div>
+        <div class="info-item">
+          <div class="icon" aria-hidden="true">💶</div>
+          <div>
+            <strong>2 499 € TTC</strong>
+            <span>Finançable CPF / OPCO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DESCRIPTION ═══════════════════════════════════════ -->
+    <section id="description" aria-labelledby="desc-title">
+      <div class="section-inner">
+        <p class="section-label">La formation</p>
+        <h2 class="section-title" id="desc-title">Intégrer YOOZ dans vos pratiques professionnelles</h2>
+        <p class="section-intro">
+          Une formation certifiante, concrète et directement opérationnelle pour maîtriser la dématérialisation des factures et les outils d'automatisation associés.
+        </p>
+
+        <div class="desc-grid">
+          <div class="desc-left">
+            <div class="desc-card" style="margin-bottom:20px;">
+              <h3><span class="c-icon" aria-hidden="true">🎯</span> Public cible</h3>
+              <ul>
+                <li>Formateurs professionnels expérimentés</li>
+                <li>Consultants en formation</li>
+                <li>Responsables pédagogiques</li>
+                <li>Concepteurs de formation</li>
+              </ul>
+            </div>
+            <div class="desc-card">
+              <h3><span class="c-icon" aria-hidden="true">📋</span> Durée &amp; format</h3>
+              <ul>
+                <li>Parcours de 3 à 4 mois au total</li>
+                <li>2×2 jours synchrones espacés de 1 à 2 mois</li>
+                <li>Plus de 8h de modules e-learning inclus</li>
+                <li>1 jour de REX et préparation certification (J+30)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="desc-right">
+            <div class="price-block">
+              <div class="price">2 499 €</div>
+              <div class="price-sub">TTC par participant</div>
+              <span class="badge-opco">✓ Finançable via CPF &amp; OPCO</span>
+            </div>
+            <div class="features-grid" role="list">
+              <div class="feat-item" role="listitem">
+                <div class="feat-icon" aria-hidden="true">📄</div>
+                <p>Création de contenus</p>
+              </div>
+              <div class="feat-item" role="listitem">
+                <div class="feat-icon" aria-hidden="true">⚙️</div>
+                <p>Automatisation</p>
+              </div>
+              <div class="feat-item" role="listitem">
+                <div class="feat-icon" aria-hidden="true">📊</div>
+                <p>Évaluation</p>
+              </div>
+              <div class="feat-item" role="listitem">
+                <div class="feat-icon" aria-hidden="true">🤖</div>
+                <p>Outils IA</p>
+              </div>
+              <div class="feat-item" role="listitem">
+                <div class="feat-icon" aria-hidden="true">🔍</div>
+                <p>Veille techno</p>
+              </div>
+              <div class="feat-item" role="listitem">
+                <div class="feat-icon" aria-hidden="true">🏆</div>
+                <p>Certification</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PROGRAMME ═════════════════════════════════════════ -->
+    <section id="programme" aria-labelledby="prog-title">
+      <div class="section-inner">
+        <p class="section-label">Programme détaillé</p>
+        <h2 class="section-title" id="prog-title">6 modules pour transformer vos pratiques</h2>
+        <p class="section-intro">Chaque module combine 2h de classe synchrone et des ressources e-learning accessibles à la demande.</p>
+
+        <div class="accordion" role="list">
+
+          <!-- Module 1 -->
+          <div class="acc-item" role="listitem">
+            <button class="acc-trigger" aria-expanded="false" aria-controls="acc-body-1" id="acc-btn-1">
+              <span class="acc-num" aria-hidden="true">1</span>
+              <div class="acc-label-block">
+                <div class="acc-module">Jour 1</div>
+                <div class="acc-title">Introduction à l'IA et ses applications en formation</div>
+                <div class="acc-meta">2h synchrone + 90 min e-learning</div>
+              </div>
+              <span class="acc-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="acc-body" id="acc-body-1" role="region" aria-labelledby="acc-btn-1">
+              <div class="acc-body-inner">
+                <ul>
+                  <li>Panorama des IA génératives utiles en formation</li>
+                  <li>Création de comptes, personas, prompts, IA éthique</li>
+                  <li>Premiers cas d'usages pédagogiques</li>
+                  <li>Généralités de l'IA — IAG et création de comptes</li>
+                  <li>Persona et l'art du prompt — Usage responsable</li>
+                </ul>
+                <div class="acc-tools">
+                  <span class="acc-tool">ChatGPT</span>
+                  <span class="acc-tool">Gemini</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="acc-item" role="listitem">
+            <button class="acc-trigger" aria-expanded="false" aria-controls="acc-body-2" id="acc-btn-2">
+              <span class="acc-num" aria-hidden="true">2</span>
+              <div class="acc-label-block">
+                <div class="acc-module">Jour 2</div>
+                <div class="acc-title">Conception de parcours pédagogiques personnalisés</div>
+                <div class="acc-meta">2h synchrone + 115 min e-learning</div>
+              </div>
+              <span class="acc-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="acc-body" id="acc-body-2" role="region" aria-labelledby="acc-btn-2">
+              <div class="acc-body-inner">
+                <ul>
+                  <li>Analyse des besoins de formation</li>
+                  <li>Génération de parcours et déroulés pédagogiques</li>
+                  <li>Création de supports de formation habillés</li>
+                  <li>Travaux pratiques en binôme sur des cas réels</li>
+                </ul>
+                <div class="acc-tools">
+                  <span class="acc-tool">ChatGPT</span>
+                  <span class="acc-tool">Gamma</span>
+                  <span class="acc-tool">Genspark</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="acc-item" role="listitem">
+            <button class="acc-trigger" aria-expanded="false" aria-controls="acc-body-3" id="acc-btn-3">
+              <span class="acc-num" aria-hidden="true">3</span>
+              <div class="acc-label-block">
+                <div class="acc-module">Jour 3</div>
+                <div class="acc-title">Création de contenus pédagogiques multimédias</div>
+                <div class="acc-meta">2h synchrone + 60 min e-learning</div>
+              </div>
+              <span class="acc-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="acc-body" id="acc-body-3" role="region" aria-labelledby="acc-btn-3">
+              <div class="acc-body-inner">
+                <ul>
+                  <li>Production de podcasts avec l'IA</li>
+                  <li>Création de vidéos pédagogiques</li>
+                  <li>Intégration d'avatars IA dans vos contenus</li>
+                  <li>Développement de contenus e-learning interactifs</li>
+                </ul>
+                <div class="acc-tools">
+                  <span class="acc-tool">NotebookLM</span>
+                  <span class="acc-tool">Heygen</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 4 -->
+          <div class="acc-item" role="listitem">
+            <button class="acc-trigger" aria-expanded="false" aria-controls="acc-body-4" id="acc-btn-4">
+              <span class="acc-num" aria-hidden="true">4</span>
+              <div class="acc-label-block">
+                <div class="acc-module">Jour 4</div>
+                <div class="acc-title">Automatisation des processus de formation</div>
+                <div class="acc-meta">2h synchrone + 120 min e-learning</div>
+              </div>
+              <span class="acc-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="acc-body" id="acc-body-4" role="region" aria-labelledby="acc-btn-4">
+              <div class="acc-body-inner">
+                <ul>
+                  <li>Construction de robots avec Make et n8n</li>
+                  <li>Automatisation de programmes de formation</li>
+                  <li>Création d'agents IA et chatbots</li>
+                  <li>Service après-vente automatisé</li>
+                </ul>
+                <div class="acc-tools">
+                  <span class="acc-tool">ChatGPT</span>
+                  <span class="acc-tool">Make</span>
+                  <span class="acc-tool">n8n</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 5 -->
+          <div class="acc-item" role="listitem">
+            <button class="acc-trigger" aria-expanded="false" aria-controls="acc-body-5" id="acc-btn-5">
+              <span class="acc-num" aria-hidden="true">5</span>
+              <div class="acc-label-block">
+                <div class="acc-module">Jour 4 (suite)</div>
+                <div class="acc-title">Animation de formations avec l'IA &amp; évaluations des acquis</div>
+                <div class="acc-meta">2h synchrone + 90 min e-learning</div>
+              </div>
+              <span class="acc-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="acc-body" id="acc-body-5" role="region" aria-labelledby="acc-btn-5">
+              <div class="acc-body-inner">
+                <ul>
+                  <li>Création de quiz, études de cas et mises en situation</li>
+                  <li>Utilisation de l'IA pendant les formations</li>
+                  <li>Enquêtes et revues qualité</li>
+                  <li>Plans d'amélioration continue</li>
+                </ul>
+                <div class="acc-tools">
+                  <span class="acc-tool">ChatGPT</span>
+                  <span class="acc-tool">Quizziz</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 6 -->
+          <div class="acc-item" role="listitem">
+            <button class="acc-trigger" aria-expanded="false" aria-controls="acc-body-6" id="acc-btn-6">
+              <span class="acc-num" aria-hidden="true">6</span>
+              <div class="acc-label-block">
+                <div class="acc-module">Jour 5 — REX à J+30</div>
+                <div class="acc-title">Veille technologique IA &amp; préparation à la certification</div>
+                <div class="acc-meta">2h synchrone + 45 min e-learning</div>
+              </div>
+              <span class="acc-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="acc-body" id="acc-body-6" role="region" aria-labelledby="acc-btn-6">
+              <div class="acc-body-inner">
+                <ul>
+                  <li>Influenceurs IA dans la formation</li>
+                  <li>Organisation de la veille via ChatGPT Task</li>
+                  <li>Création d'un robot d'automatisation de veille</li>
+                  <li>Partage des retours d'usage entre participants</li>
+                  <li>Finalisation du dossier professionnel</li>
+                  <li>Coaching personnalisé autour de la soutenance orale</li>
+                  <li>Évaluation blanche et feedback final</li>
+                </ul>
+                <div class="acc-tools">
+                  <span class="acc-tool">ChatGPT</span>
+                  <span class="acc-tool">Gemini</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /accordion -->
+      </div>
+    </section>
+
+    <!-- ══ MOT DU FORMATEUR / VIDÉO ══════════════════════════ -->
+    <section id="video" aria-labelledby="video-title">
+      <div class="section-inner">
+        <p class="section-label">Mot du formateur</p>
+        <h2 class="section-title" id="video-title">Une approche pragmatique &amp; humaine</h2>
+
+        <div class="video-wrapper">
+          <div class="video-frame" aria-label="Espace vidéo de présentation — à venir">
+            <div class="video-placeholder">
+              <div class="play-btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+              <p>Vidéo de présentation à venir</p>
+            </div>
+          </div>
+
+          <div class="video-text">
+            <blockquote>
+              "Former à YOOZ, c'est donner aux équipes les clés pour reprendre le contrôle de leurs processus. Moins de papier, plus de sens."
+            </blockquote>
+            <p style="color:var(--grey-text); font-size:0.93rem; margin-bottom:24px;">
+              Cette formation est conçue pour aller droit au but : pas de jargon inutile, des exercices tirés de situations réelles et un accompagnement jusqu'à la certification.
+            </p>
+            <div class="formateur-info">
+              <div class="formateur-avatar" aria-hidden="true">ML</div>
+              <div class="formateur-detail">
+                <strong>Mickael Loeuille</strong>
+                <span>Formateur — Valeurs &amp; Talents<br />Formation - Coaching - Conseil RH</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CARTE ══════════════════════════════════════════════ -->
+    <section id="lieu" aria-labelledby="lieu-title">
+      <div class="section-inner">
+        <p class="section-label">Lieu &amp; accès</p>
+        <h2 class="section-title" id="lieu-title">Rejoignez-nous à Pessac</h2>
+
+        <div class="map-wrapper">
+          <div class="map-infos">
+            <div class="date-highlight">
+              <div class="date-big">6 juillet</div>
+              <div class="date-sub">2026 — Session en présentiel</div>
+            </div>
+            <div class="map-card">
+              <h3>📍 Adresse</h3>
+              <p>26 avenue Jean Jaurès<br />33600 Pessac<br />Gironde, France</p>
+            </div>
+            <div class="map-card">
+              <h3>🚇 Accès</h3>
+              <p>Tramway ligne B — Arrêt <strong>Peixotto</strong> ou <strong>Arts &amp; Métiers</strong><br />
+              Parking public à proximité immédiate.</p>
+            </div>
+            <div class="map-card">
+              <h3>♿ Accessibilité</h3>
+              <p>Locaux accessibles aux personnes à mobilité réduite.<br />
+              <a href="#handicap" class="handicap-link" style="display:inline-flex;margin-top:8px;font-size:0.78rem;">
+                ♿ Politique handicap de l'organisme
+              </a></p>
+            </div>
+          </div>
+
+          <div class="map-embed">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.123456789!2d-0.6300000!3d44.8080000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54d9b1234567890%3A0xabcdef1234567890!2s26+Avenue+Jean+Jaur%C3%A8s%2C+33600+Pessac!5e0!3m2!1sfr!2sfr!4v1234567890"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Localisation — 26 avenue Jean Jaurès, 33600 Pessac"
+              aria-label="Carte Google Maps — Lieu de la formation à Pessac">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TÉLÉCHARGEMENTS ════════════════════════════════════ -->
+    <section id="telechargements" aria-labelledby="dl-title">
+      <div class="section-inner">
+        <p class="section-label">Documents</p>
+        <h2 class="section-title" id="dl-title">Tout ce qu'il vous faut, en un clic</h2>
+        <p class="section-intro">Téléchargez le programme complet pour le consulter à votre rythme ou le partager avec votre responsable de formation.</p>
+
+        <div class="dl-grid">
+          <div class="dl-card">
+            <div class="dl-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div class="dl-info">
+              <strong>Programme de la formation</strong>
+              <span>Détail des 6 modules · PDF · À plat</span>
+            </div>
+            <a href="programme.pdf" download class="dl-btn" aria-label="Télécharger le programme de la formation en PDF">
+              Télécharger
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="logo.png" alt="Valeurs &amp; Talents" />
+          <p>Organisme de formation spécialisé en développement des compétences, coaching et conseil RH.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#description">La formation</a></li>
+            <li><a href="#programme">Programme</a></li>
+            <li><a href="#video">Mot du formateur</a></li>
+            <li><a href="#lieu">Lieu &amp; accès</a></li>
+            <li><a href="#telechargements">Documents</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact formateur</h4>
+          <div class="footer-contact-item">
+            <span class="ci-icon" aria-hidden="true">✉️</span>
+            <a href="mailto:mickael.loeuille@valeurs-et-talents.fr">mickael.loeuille@valeurs-et-talents.fr</a>
+          </div>
+          <div class="footer-contact-item">
+            <span class="ci-icon" aria-hidden="true">📞</span>
+            <a href="tel:+33681255388">06 81 25 53 88</a>
+          </div>
+          <div class="footer-contact-item">
+            <span class="ci-icon" aria-hidden="true">📍</span>
+            <span>3 ter avenue des Villages<br />44470 Carquefou</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Valeurs &amp; Talents — Formation · Coaching · Conseil RH</p>
+        <a href="#handicap" class="handicap-link" id="handicap" aria-label="Politique d'inclusion et de gestion du handicap de l'organisme de formation">
+          ♿ Politique inclusion &amp; handicap
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══ JAVASCRIPT ══════════════════════════════════════════ -->
+  <script>
+    // Accordéon accessible
+    document.querySelectorAll('.acc-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item   = btn.closest('.acc-item');
+        const body   = document.getElementById(btn.getAttribute('aria-controls'));
+        const isOpen = item.classList.contains('open');
+
+        // fermer tous
+        document.querySelectorAll('.acc-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
+          i.querySelector('.acc-body').style.maxHeight = null;
+        });
+
+        // ouvrir le cliqué si pas déjà ouvert
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // Ouvrir le premier module par défaut
+    const firstTrigger = document.querySelector('.acc-trigger');
+    if (firstTrigger) firstTrigger.click();
+  </script>
+
+</body>
+</html>
